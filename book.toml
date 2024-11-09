@@ -1,0 +1,12 @@
+[book]
+authors = ["Oriol Vallès"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Individual Assignment"
+
+[preprocessor.plantuml]
+plantuml-cmd="http://localhost:8080"
+
+[output.html]
+default-theme = "Ayu"
