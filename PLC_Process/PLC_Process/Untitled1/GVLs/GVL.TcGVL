@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL" Id="{199d67e4-3850-471d-ba72-d216f9606876}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	bCardPresented : BOOL := FALSE;      // Indicates if a card has been presented
+    bElevatorRequest : BOOL := FALSE;    // Indicates if the elevator button is pressed
+    bElevatorArrived : BOOL := FALSE;    // Indicates if the elevator has arrived at floor 0
+    tDoorCloseDelay : TIME := T#5S;      // Delay time to close the door
+    tElevatorMoveTime : TIME := T#10S;   // Time it takes for the elevator to reach floor 0
+	bDoorClosed: BOOL;
+	bAccessGranted : BOOL := FALSE;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

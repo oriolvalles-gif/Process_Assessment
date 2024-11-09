@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Task_2" Id="{f622ca62-79f6-4411-bbe8-a47044c7fd49}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Task_2
+VAR
+	tmrElevatorMove : TON;                  // Timer for the elevator movement
+    bLocalAccessGranted : BOOL := FALSE;    // Local copy of the access granted status
+    bLocalElevatorRequest : BOOL := FALSE;  // Local copy of the elevator request status
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Read the GVL variables locally to ensure correct types
+bLocalAccessGranted := GVL.bAccessGranted;
+bLocalElevatorRequest := GVL.bElevatorRequest;
+
+// Elevator control logic
+IF bLocalAccessGranted AND bLocalElevatorRequest THEN
+    tmrElevatorMove(IN := TRUE, PT := GVL.tElevatorMoveTime);   // Start the elevator movement timer
+ELSE
+    tmrElevatorMove(IN := FALSE);
+END_IF
+
+// Update elevator status in the GVL
+IF tmrElevatorMove.Q THEN
+    GVL.bElevatorArrived := TRUE;     // Set TRUE when elevator arrives at floor 0
+ELSE
+    GVL.bElevatorArrived := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Task_2">
+      <LineId Id="41" Count="15" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
