@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_DoorControl" Id="{c0629315-282b-4897-b9c2-6ce422263268}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_DoorControl
+VAR_INPUT
+    bStartTimer : BOOL;               // Input to start the timer
+END_VAR
+VAR_OUTPUT
+    bDoorClosed : BOOL;               // Output indicating if the door is closed
+END_VAR
+VAR
+    tmrDoor : TON;                    // Timer to control the door closing delay
+	tDoorCloseDelay: TIME;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Timer logic for door closing
+IF bStartTimer THEN
+    tmrDoor(IN := TRUE, PT := tDoorCloseDelay);
+ELSE
+    tmrDoor(IN := FALSE);
+END_IF
+
+bDoorClosed := NOT tmrDoor.Q;         // Door is closed when timer is done]]></ST>
+    </Implementation>
+    <LineIds Name="FB_DoorControl">
+      <LineId Id="18" Count="7" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
